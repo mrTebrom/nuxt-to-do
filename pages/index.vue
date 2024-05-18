@@ -8,14 +8,16 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useTaskStore } from '~/store/task';
+import { useListStore } from '~/store/list';
 import { computed } from 'vue';
 
 const taskStore = useTaskStore();
+
 const tasks = computed(() => taskStore.tasks);
 
-const addTask = (title) => {
+const addTask = (title: string): void => {
   taskStore.addTask(title);
 };
 
