@@ -1,8 +1,8 @@
 <template>
   <section class="root">
-    <DialogModal v-if="showModal" :showModal="showModal" @close="closeModal">
-      <h2>Модальное Окно</h2>
-      <p>Это содержимое модального окна.</p>
+    <LayoutSidebar />
+    <!-- <DialogModal v-if="showModal" :showModal="showModal" @close="closeModal">
+      <LayoutCreateList @close="closeModal" />
     </DialogModal>
     <aside>
       <div class="user">
@@ -25,19 +25,13 @@
                 <path fill="currentColor" fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8L4.646 2.354a.5.5 0 0 1 0-.708" />
               </svg>
             </NuxtLink>
-            <NuxtLink to="/important" v-for="li in list" :key="li.title">
-              <span><Icon name="bi:star" class="icon" /> Важное</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-                <path fill="currentColor" fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8L4.646 2.354a.5.5 0 0 1 0-.708" />
-              </svg>
-            </NuxtLink>
           </li>
         </ul>
       </div>
       <div class="create-container">
         <button @click="openModal"><Icon name="bi:plus-lg" style="width: 16px; height: 16px" class="icon" /> Создать список</button>
       </div>
-    </aside>
+    </aside> -->
 
     <div class="content">
       <header></header>
@@ -49,7 +43,6 @@
   </section>
 </template>
 <script>
-import { useListStore } from '~/store/list';
 export default {
   components: [
     {
@@ -60,6 +53,7 @@ export default {
   data() {
     return {
       showModal: false,
+      newList: '',
     };
   },
   methods: {
@@ -67,12 +61,11 @@ export default {
       this.showModal = true;
     },
     closeModal() {
+      this.newList = '';
       this.showModal = false;
     },
-  },
-  computed: {
-    lists() {
-      return useListStore.list;
+    onOk() {
+      console.log(this.newList);
     },
   },
 };

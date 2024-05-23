@@ -1,7 +1,7 @@
 <template>
   <div v-if="showModal" class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
-      <button class="close-button" @click="closeModal">X</button>
+      <button class="close-button" @click="closeModal"><Icon name="bi:x" /></button>
       <div class="modal-body">
         <slot></slot>
       </div>
@@ -52,6 +52,7 @@ export default {
   max-width: 80%;
   position: relative;
   animation: slideIn @modal-transition-duration;
+  background-color: #201f24;
 }
 
 .close-button {
@@ -62,6 +63,7 @@ export default {
   border: none;
   font-size: 20px;
   cursor: pointer;
+  color: #fff;
 }
 
 @keyframes fadeIn {
