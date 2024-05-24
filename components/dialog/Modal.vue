@@ -1,31 +1,34 @@
 <template>
-  <div v-if="showModal" class="modal-overlay" @click="closeModal">
-    <div class="modal-content" @click.stop>
-      <button class="close-button" @click="closeModal"><Icon name="bi:x" /></button>
-      <div class="modal-body">
-        <slot></slot>
+  <transition name="modal">
+    <div v-if="showModal" class="modal-overlay" @click="closeModal">
+      <div class="modal-content" @click.stop>
+        <button class="close-button" @click="closeModal"><Icon name="bi:x" /></button>
+        <div class="modal-body">
+          <slot></slot>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
-<script>
-export default {
-  props: {
-    showModal: {
-      type: Boolean,
-      required: true,
-    },
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+
+const props = defineProps({
+  showModal: {
+    type: Boolean,
+    required: true,
   },
-  methods: {
-    closeModal() {
-      this.$emit('close');
-    },
-  },
+});
+
+const emit = defineEmits(['close']);
+
+const closeModal = () => {
+  emit('close');
 };
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 @modal-background-color: rgba(0, 0, 0, 0.6);
 @modal-content-background-color: #fff;
 @modal-transition-duration: 0.3s;
@@ -41,7 +44,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeIn @modal-transition-duration;
 }
 
 .modal-content {
@@ -51,7 +53,6 @@ export default {
   width: 500px;
   max-width: 80%;
   position: relative;
-  animation: slideIn @modal-transition-duration;
   background-color: #201f24;
 }
 
@@ -66,32 +67,13 @@ export default {
   color: #fff;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.modal-content-leave-active,
-.modal-content-enter-active {
+.modal-enter-active,
+.modal-leave-active {
   transition: opacity @modal-transition-duration, transform @modal-transition-duration;
 }
 
-.modal-content-leave-to {
+.modal-enter-from,
+.modal-leave-to {
   opacity: 0;
   transform: translateY(-20px);
 }
