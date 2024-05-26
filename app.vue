@@ -4,6 +4,4 @@
   </NuxtLayout>
 </template>
 
-<script>
-// For Nuxt 3
-</script>
+<script setup></script>

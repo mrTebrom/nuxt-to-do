@@ -47,10 +47,22 @@
 <script setup>
 import { useListStore } from '~/store/list';
 import { computed, onMounted } from 'vue';
+
+import { useTaskStore } from '~/store/task';
+
+// Инициализация задач
+
+const task = useTaskStore();
+
 const store = useListStore();
+
 const lists = computed(() => store.list);
 onMounted(async () => {
   await store.initialize();
+
+  //tasks
+
+  await task.initialize();
 });
 </script>
 <style lang="less">

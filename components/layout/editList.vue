@@ -5,7 +5,7 @@
     </div>
     <DialogModal :showModal="showModal" @close="closeModal">
       <div class="add-list">
-        <h1>Создать список</h1>
+        <h1>Изменить список {{ title }}</h1>
         <div v-if="error" class="alert">Данный список уже существует</div>
         <div :class="{ inputContainer: true, active: border }">
           <input :onfocus="onFocus" :onblur="onBlur" type="text" v-model="value" @keydown.enter="add" />
@@ -26,6 +26,7 @@ const value = ref('');
 const border = ref(false);
 const showModal = ref(false);
 const error = ref(false);
+const title = ref('');
 const listStore = useListStore();
 const add = () => {
   if (value.value.trim().length <= 0) return;
@@ -36,6 +37,7 @@ const add = () => {
     return;
   } else {
     listStore.addList(value.value);
+    console.log('List added:', value.value);
     value.value = ''; // Очистить поле ввода после добавления
     border.value = false;
     error.value = false;
@@ -64,7 +66,7 @@ const openModal = () => {
 };
 const closeModal = () => {
   showModal.value = false;
-  value.value = ''; // Clear input on close
+  newList.value = ''; // Clear input on close
 };
 </script>
 <style lang="less">

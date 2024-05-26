@@ -1,37 +1,6 @@
 <template>
   <section class="root">
     <LayoutSidebar />
-    <!-- <DialogModal v-if="showModal" :showModal="showModal" @close="closeModal">
-      <LayoutCreateList @close="closeModal" />
-    </DialogModal>
-    <aside>
-      <div class="user">
-        <div class="avatar">HH</div>
-        <div class="user-info">
-          <div class="username">Antonio Bonilla</div>
-          <div class="email">antonio.bonilla@horus.com.uy</div>
-        </div>
-      </div>
-      <div class="search-container">
-        <input type="text" class="search" placeholder="Поиск" />
-        <div class="search-help">поиск списка заданий</div>
-      </div>
-      <div class="list-container">
-        <ul>
-          <li>
-            <NuxtLink to="/important">
-              <span><Icon name="bi:star" class="icon" /> Важное</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-                <path fill="currentColor" fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8L4.646 2.354a.5.5 0 0 1 0-.708" />
-              </svg>
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
-      <div class="create-container">
-        <button @click="openModal"><Icon name="bi:plus-lg" style="width: 16px; height: 16px" class="icon" /> Создать список</button>
-      </div>
-    </aside> -->
 
     <div class="content">
       <header></header>
@@ -91,23 +60,17 @@ body * {
 }
 .root {
   display: flex;
-  width: 100vw; /* ограничиваем ширину до 100vw */
-  max-width: 100vw; /* ограничиваем максимальную ширину до 100vw */
-  min-width: 100vw; /* ограничиваем минимальную ширину до 100vw */
-  height: 100vh; /* ограничиваем высоту до 100vh */
-  max-height: 100vh; /* ограничиваем максимальную высоту до 100vh */
-  min-height: 100vh; /* ограничиваем минимальную высоту до 100vh */
-
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* Добавляем, чтобы исключить появление прокрутки */
   aside {
-    width: 300px;
+    flex: 0 0 300px; /* Гарантируем, что aside будет иметь фиксированную ширину 300px */
     height: 100%;
     background-color: @body-background-color;
-    min-height: 100vh;
     padding: 20px;
-    gap: 20px;
     display: flex;
     flex-direction: column;
-    max-height: 100vh;
+    box-sizing: border-box; /* Убедимся, что padding включен в ширину */
     .user {
       display: flex;
       gap: 20px;
@@ -213,10 +176,11 @@ body * {
     }
   }
   .content {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
+    flex: 1;
     background-color: @main-background-color;
+    padding: 20px; /* Добавляем отступы внутри .content */
+    box-sizing: border-box; /* Убедимся, что padding включен в ширину */
+    overflow: auto; /* Добавляем прокрутку для контента */
   }
 }
 </style>
